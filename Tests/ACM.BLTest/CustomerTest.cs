@@ -8,7 +8,7 @@ namespace ACM.BLTest
     public class CustomerTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void FullNameTestValid()
         {
             Customer customer = new Customer
             {
@@ -21,6 +21,55 @@ namespace ACM.BLTest
             string actual = customer.FullName;
 
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void FullNameLastNameEmpty()
+        {
+
+            Customer customer = new Customer()
+            {
+                FirstName = "Bilbo"
+            };
+
+            string expected = "Bilbo";
+
+            string actual = customer.FullName;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void FullNameFirstNameEmpty()
+        {
+            Customer customer = new Customer()
+            {
+                LastName = "Baggins"
+            };
+
+            string expected = "Baggins";
+
+            string actual = customer.FullName;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void StaticTest()
+        {
+            var c1 = new Customer();
+            c1.FirstName = "Bilbo";
+            Customer.InstanceCount += 1;
+
+            var c2 = new Customer();
+            c1.FirstName = "Frodo";
+            Customer.InstanceCount += 1;
+
+            var c3 = new Customer();
+            c1.FirstName = "Rosie";
+            Customer.InstanceCount += 1;
+
+            Assert.AreEqual(3, Customer.InstanceCount);
         }
     }
 }
